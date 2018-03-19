@@ -11,7 +11,7 @@ if ($_POST['exit']) {
     header('Location: index.php');
 }
 
-$connect = mysqli_connect("localhost", "root", "", "netology");
+$connect = mysqli_connect("localhost", "aevlahina", "neto1705", "aevlahina");
 
 $users = mysqli_query($connect, "select * from user");
 $users_id = [];
@@ -65,7 +65,6 @@ $res_rep = mysqli_query($connect, $sql_rep);
 
 ?>
 
-<!doctype>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -104,7 +103,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 					<select name="user_rep">
 						<option></option>
 						<?php for ($i = 0; $i < count($users_login); $i++) { ?>
-						<option><?php echo $users_login[$i] ?></option>
+						<option><?php echo $users_login[$i]; ?></option>
 						<? } ?>
 					</select>
 					<br>

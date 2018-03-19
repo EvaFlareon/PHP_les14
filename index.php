@@ -8,7 +8,7 @@ if (!empty($_SESSION['user'])) {
 
 $errors = [];
 
-$connect = mysqli_connect("localhost", "root", "", "netology");
+$connect = mysqli_connect("localhost", "aevlahina", "neto1705", "aevlahina");
 $sql = "select * from user";
 
 if (!empty($_POST)) {
@@ -54,7 +54,7 @@ if (!empty($_POST)) {
     <h1>Авторизация</h1>
     <ul>
         <?php foreach ($errors as $error) { ?>
-        <li><?= $error ?></li>
+        <li><?= $error; ?></li>
         <? } ?>
     </ul>
     <form action="" method="POST">

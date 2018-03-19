@@ -6,7 +6,9 @@ if (empty($_SESSION['user'])) {
 	header('Location: index.php');
 }
 
-if ($_POST['exit']) {
+if (!$_POST['exit']) {
+	
+} else {
     session_destroy();
     header('Location: index.php');
 }
@@ -65,6 +67,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 
 ?>
 
+<!doctype>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -82,7 +85,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 	</style>
 </head>
 <body>
-	<h1>Здравствуйте <?= $user['login']; ?>. Список дел на сегодня</h1>
+	<h1>Здравствуйте <?php echo $user['login']; ?>. Список дел на сегодня</h1>
 	<form action="" method="post">
 		<table>
 			<input type="text" name="adding"><input type="submit" name="add" value="Добавить">			
@@ -104,7 +107,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 						<option></option>
 						<?php for ($i = 0; $i < count($users_login); $i++) { ?>
 						<option><?php echo $users_login[$i]; ?></option>
-						<? } ?>
+						<?php } ?>
 					</select>
 					<br>
 					<input type="submit" name="<?= 'r'.$data['user_id']; ?>" value="Перенаправить задачу">
@@ -115,7 +118,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 				<td style="border: none"><input type="submit" name="<?= 'c'.$data[0]; ?>" value="Выполнить"></td>
 				<td style="border: none"><input type="submit" name="<?= 'd'.$data[0]; ?>" value="Удалить"></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 	</form>
 
@@ -139,7 +142,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 				<td style="border: none"><input type="submit" name="<?= 'c'.$data[0]; ?>" value="Выполнить"></td>
 				<td style="border: none"><input type="submit" name="<?= 'd'.$data[0]; ?>" value="Удалить"></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 	</form>
 

@@ -54,8 +54,8 @@ if (!empty($_POST)) {
     <h1>Авторизация</h1>
     <ul>
         <?php foreach ($errors as $error) { ?>
-        <li><?= $error; ?></li>
-        <? } ?>
+        <li><?php $error; ?></li>
+        <?php } ?>
     </ul>
     <form action="" method="POST">
         <label>Логин</label>

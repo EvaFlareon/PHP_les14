@@ -6,9 +6,7 @@ if (empty($_SESSION['user'])) {
 	header('Location: index.php');
 }
 
-if (!$_POST['exit']) {
-	
-} else {
+if (isset($_POST['exit'])) {
     session_destroy();
     header('Location: index.php');
 }
@@ -30,7 +28,7 @@ $sql = "select * from task left join user on user.id=task.assigned_user_id where
 $sql_rep = "select * from task left join user on user.id=task.user_id where task.assigned_user_id = ".$_SESSION['user']." and task.user_id <> ".$_SESSION['user'];
 
 if (!empty($_POST)) {
-	if ($_POST['add'] && $_POST['adding'] !== '') {
+	if (isset($_POST['add']) && $_POST['adding'] !== '') {
 		mysqli_query($connect, "insert into `task`(`user_id`, `assigned_user_id`, `description`) values ('".$user['id']."', '".$user['id']."', '".$_POST['adding']."')");
 		header('Location: tasks.php');
 	}
@@ -67,7 +65,6 @@ $res_rep = mysqli_query($connect, $sql_rep);
 
 ?>
 
-<!doctype>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -85,7 +82,7 @@ $res_rep = mysqli_query($connect, $sql_rep);
 	</style>
 </head>
 <body>
-	<h1>Здравствуйте <?php echo $user['login']; ?>. Список дел на сегодня</h1>
+	<h1>Здравствуйте <?= $user['login']; ?>. Список дел на сегодня</h1>
 	<form action="" method="post">
 		<table>
 			<input type="text" name="adding"><input type="submit" name="add" value="Добавить">			

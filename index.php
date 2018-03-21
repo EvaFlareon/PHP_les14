@@ -12,7 +12,7 @@ $connect = mysqli_connect("localhost", "aevlahina", "neto1705", "aevlahina");
 $sql = "select * from user";
 
 if (!empty($_POST)) {
-    if ($_POST['input']) {
+    if (isset($_POST['input'])) {
         $res = mysqli_query($connect, $sql);
         while ($data = mysqli_fetch_array($res)) {
             if ($data['login'] === $_POST['login'] && $data['password'] === $_POST['password']) {
@@ -22,24 +22,29 @@ if (!empty($_POST)) {
         }
     }
 
-    if ($_POST['reg']) {
+    if (isset($_POST['reg'])) {
         $res = mysqli_query($connect, $sql);
         while ($data = mysqli_fetch_array($res)) {
             if ($data['login'] === $_POST['login']) {
-                echo 'Пользователь с таким логином уже существует';
+                $err = 'Пользователь с таким логином уже существует';
                 break;
             } else if ($_POST['login'] === '' || $_POST['password'] === '') {
-                echo 'Не все поля заполнены';
+                $err = 'Не все поля заполнены';
                 break;
-            } else {
-                mysqli_query($connect, "insert into `user`(`login`, `password`) values ('".$_POST['login']."','".$_POST['password']."')");
-                echo 'Вы успешно зарегистрированы. Войдите под своим логином и паролем';
-                break;
-            }
+            } 
+            // else {
+            //     mysqli_query($connect, "insert into `user`(`login`, `password`) values ('".$_POST['login']."','".$_POST['password']."')");
+            //     echo 'Вы успешно зарегистрированы. Войдите под своим логином и паролем';
+            // }
+        }
+        
+        if (isset($err)) {
+            echo $err;
+        } else {
+            mysqli_query($connect, "insert into `user`(`login`, `password`) values ('".$_POST['login']."','".$_POST['password']."')");
+            echo 'Вы успешно зарегистрированы. Войдите под своим логином и паролем';
         }
     }
-
-    $errors[] = 'Неверный логин или пароль';
 }
 
 ?>
@@ -52,11 +57,6 @@ if (!empty($_POST)) {
 </head>
 <body>
     <h1>Авторизация</h1>
-    <ul>
-        <?php foreach ($errors as $error) { ?>
-        <li><?php $error; ?></li>
-        <?php } ?>
-    </ul>
     <form action="" method="POST">
         <label>Логин</label>
         <input type="text" name="login">
